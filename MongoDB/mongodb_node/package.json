@@ -1,0 +1,17 @@
+{
+  "name": "mongodb_node",
+  "version": "1.0.0",
+  "description": "mongo_db aplicacion con node",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "marko",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.0"
+  }
+}

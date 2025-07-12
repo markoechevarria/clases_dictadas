@@ -1,0 +1,95 @@
+### $count() -> cuenta los documentos que pasan hasta esa ETAPA de pipeline
+db.empleados.aggregate( [
+	{ $match: { "edad": { $gte: 18 } } },
+	{ $count: "Adultos" }
+] )
+
+db.empleados.countDocuments( {edad: { $gte: 18 } } )
+
+### $expr -> usar operadores de comparacion entre campos del mismo documento
+
+db.empleados.find({
+	$expr: { $lt: ["$salario", "$meta"] }
+})
+
+### $lookup -> unir colecciones
+
+db.estudiantes.aggregate([
+	{$lookup: {
+		from: "cursos", 
+		localField: "id_curso",
+		foreignField: "_id",
+		as: "salon"
+	}}
+])
+
+### $unwind -> desenrollar arreglos
+
+db.empleados.aggregate([
+	{$unwind: "$habilidades"}
+])
+
+### $cond -> permite logica condicional (if then else)
+
+db.empleados.aggregate( [ { $project: { SalarioAlto: { $cond: { if: { $gt: ["$salario", 4500]}, then: "Si", else: "No" } } } } ] )
+
+### $ifNull -> devolver un valor por defecto si el campo es null o no existe
+
+db.empleados.aggregate([
+	{ $project: {
+		_id: 0,
+		nombre: 1, 
+		salario: { $ifNull: [ "$salario", "No disponible" ] }
+	} }
+])
+
+db.empleados.aggregate([
+	{ $project: {
+		_id: 0,
+		nombre: 1, 
+		meta: { $ifNull: [ "$meta", "0" ] }
+	} }
+])
+
+
+### MONGO DB COMPASS
+
+
+db.empleados.aggregate([
+  {
+    $match: {
+      edad: {
+        $gt: 25
+      }
+    }
+  },
+  {
+    $project: {
+      nombre: 1,
+      cargo: 1,
+      salario: 1,
+      competitivo: {
+        $cond: {
+          if: {
+            $gt: ["$salario", 6000]
+          },
+          then: "Salario competitivo",
+          else: "Salario bajo"
+        }
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$competitivo",
+      salario: {
+        $avg: "$salario"
+      }
+    }
+  },
+  {
+    $sort: {
+      salario: 1
+    }
+  }
+])

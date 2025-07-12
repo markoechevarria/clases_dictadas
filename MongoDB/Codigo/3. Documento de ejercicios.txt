@@ -1,0 +1,27 @@
+db.empleados.insertMany([
+  {
+    nombre: "Luis", edad: 32, cargo: "Analista", salario: 3500,
+    habilidades: ["Excel", "SQL", "Power BI"],
+    direccion: { ciudad: "Lima", distrito: "San Borja" }
+  },
+  {
+    nombre: "Ana", edad: 28, cargo: "Desarrollador", salario: 4800,
+    habilidades: ["JavaScript", "MongoDB", "React"],
+    direccion: { ciudad: "Lima", distrito: "Miraflores" }
+  },
+  {
+    nombre: "Pedro", edad: 40, cargo: "Jefe de Proyecto", salario: 7500,
+    habilidades: ["Gestión", "Scrum", "Excel"],
+    direccion: { ciudad: "Arequipa", distrito: "Cayma" }
+  },
+  {
+    nombre: "Lucía", edad: 25, cargo: "Desarrollador", salario: 4200,
+    habilidades: ["Python", "MongoDB", "Docker"],
+    direccion: { ciudad: "Cusco", distrito: "Wanchaq" }
+  },
+  {
+    nombre: "Sofía", edad: 30, cargo: "Diseñador", salario: 4000,
+    habilidades: ["Photoshop", "Figma", "Creatividad"],
+    direccion: { ciudad: "Lima", distrito: "Surco" }
+  }
+])

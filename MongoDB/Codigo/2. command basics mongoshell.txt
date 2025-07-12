@@ -1,0 +1,19 @@
+limpiar consola: cls o Tecla control + l
+mostrar las dbs: show dbs
+crear db: use nombre_de_db
+
+crear colecciones: db.createCollection("nombre_de_colleccion")
+listar colecciones: show collections
+
+string cadena -> "está es una cadena", "999111999", "true"
+float flotante -> 0.5 , -100.9, 99999.000001
+int entero -> 1 , 100, -1
+bool booleano -> true, false
+list listas -> [1, 2, 3, 4], ["a", "esto es b", "c"], [true, false, true], [1.5, 1.4, 1000.1 ]
+object objetos -> { anio: 2022, descripcion: "no tramito su carne", lista_extra : [1, 2, 3] }
+
+
+greater than = gt
+less than = lt
+greater equal than = get
+less equal than = let

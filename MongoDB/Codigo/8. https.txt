@@ -1,0 +1,21 @@
+POST /api/usuarios
+Content-Type: application/json
+{
+  "nombre": "Carlos Pérez",
+  "correo": "carlos@example.com",
+  "edad": 28
+}
+
+GET /api/usuarios
+
+GET /api/usuarios/663659cf1dfda76a2a123456
+
+PUT /api/usuarios/663659cf1dfda76a2a123456
+Content-Type: application/json
+{
+  "nombre": "Carlos Eduardo Pérez",
+  "edad": 29
+}
+
+DELETE /api/usuarios/663659cf1dfda76a2a123456
+

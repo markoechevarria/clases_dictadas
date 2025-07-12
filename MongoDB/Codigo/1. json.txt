@@ -1,0 +1,277 @@
+BASES DE DATOS RELACIONALES
+
+persona
+
+id
+nombre
+dni
+apellido
+direccion
+dinero
+telefono
+
+BASES DE DATOS NO RELACIONALES
+
+persona 
+{
+	id: 1
+	nombre: juan
+	nacionalidad:peru
+	apellido: Alvarez
+	telefono: 123456
+	extra: {
+		pais: eeuu
+		trabajo: programador
+		clientes: [ nombre_hijo_1, nombre_hijo_2 ]
+		cliene1: 
+		cliente2:
+		cliente3:
+		…
+	}
+}
+
+persona 
+{
+	id: 2
+	nombre: Esteban
+	apellido: Alvarez
+	telefono: 123456
+	extra: {
+		pais: eeuu
+		trabajo: programador
+		hijos: [ nombre_hijo_1, nombre_hijo_2 ]
+	}
+	trabajo: programador
+}
+
+
+facebook:
+{
+	id: 2
+	nombre: marko
+	foto_de_perfil: gato.jpg
+	publicacion_like: {
+		nombre_publicacion: "cambio climatico"
+	}
+	fotos: [
+		{
+			foto: foto_1.jpg
+			etiqueta: mama
+			reacciones: 10
+		},
+		{
+			foto: foto_2.jpg
+			reacciones: {
+				likes: 80
+				me encanta: 5 
+				me divierte: 15
+			}
+		}
+	]
+}
+
+{
+	id: 3
+	nombre: juan
+	cancion: cancion_cualquiera
+	publicacion_dislike: {
+		nombre_publicacion: "cambio climatico"
+	}
+	publicacion: {
+		nombre: "cambio climatico"
+		mensaje: "no estoy de acuerdo ..."
+		mensaje: 
+		mensaje: 
+		...
+	}
+}
+
+### DOCUEMTNOS EMBEBIDOS
+
+Soy una empresa que ofrece contacto de paseadores de perros
+
+empleado
+{
+	nobmre: marko
+	edad: 20
+	cargo: vendedor
+	direccion: {
+		ciudad: lima, 
+		pais: peru, 
+		num_casa: 200,
+		fecha_adquisicion: 2000
+		referencia: casa_marron
+		num_pisos: 2
+	}
+}
+
+marko	20	lima	peru	
+
+empleado.find({direccion.ciudad: "lima"})
+
+### DOCUMENTOS POR REFERENCIA
+
+empleado
+{
+	nobmre: marko
+	edad: 20
+	cargo: vendedor
+
+}
+
+direccion 
+{
+	ciudad: lima, 
+	pais: peru, 
+	num_casa: 200
+}
+
+clients
+ {
+	cliente1: {
+		nombre: juan
+		edad: 50
+		ciuad: lima
+		ultimo_servicio: 
+		pagos_realizados: 
+	}
+	cliente2: marko2
+	cliente3: marko3
+	...
+}
+
+
+
+clients
+
+marko	ped1
+percy	ped3, ped4, ped5
+juan	ped7, ped2
+
+pedidos
+
+ped1:	marko
+ped2:	juan
+ped3:	percy
+ped4:	percy
+ped5:	percy
+ped6:	
+ped7:	juan
+
+
+coleccion de profesores:
+
+marko {
+	id:1
+	saldo:
+	direccion:
+}
+juan {
+	id:1
+	saldo:
+	direccion:
+}
+
+coleccion de salones:
+
+salon1 {
+	num_alumnos:
+	grado:
+}
+salon2 {
+	num_alumnos:
+	grado:
+}
+salon3 {
+	num_alumnos:
+	grado:
+}
+
+### Crear coleccion por referencia
+
+en 1 curso hay          MUCHOS estudiantes
+   1 estudainte esta en 1      curso
+
+estudiantes
+db.estudiantes.insertMany( [
+{
+	"nombre": "ana",
+	"edad": 15,
+	"id_curso": ObjectId("67fbce36cae121065db71236")
+},
+{
+	"nombre": "luis",
+	"edad": 13,
+	"id_curso": ObjectId("67fbce36cae121065ba98736")
+},
+{
+	"nombre": "cesar",
+	"edad": 6,
+	"id_curso": ObjectId("67fbce36cae121065ba31236")
+},
+{
+	"nombre": "percy",
+	"edad": 15,
+	"id_curso": ObjectId("67fbce36cae121065db71236")
+}
+])
+
+cursos
+db.cursos.insertMany( [
+{
+	_id: ObjectId("67fbce36cae121065ba31236"),
+	"nombre_salon": "1roA",
+	"num_estudiantes": 20
+},
+{
+	_id: ObjectId("67fbce36cae121065ba98736"),
+	"nombre_salon": "3roB",
+	"num_estudiantes": 20
+},
+{
+	_id: ObjectId("67fbce36cae121065db71236"),
+	"nombre_salon": "5toA",
+	"num_estudiantes": 20
+}
+])
+
+cumple estas caracteristicas:
+
+24 caracteres
+numeros del 0 al 9
+0123456789abcdef
+no caracteres especiales #%^*
+
+
+db.estudiantes.aggregate( [ { 
+	$lookup: {
+		from: "cursos",
+		localField: "id_curso",
+		foreignField: "_id",
+		as: "salon_perteneciente"
+	}
+ } ] )
+
+Tienda online
+
+productos
+
+{
+	_id
+	nombre:
+	precio:
+	stock
+	cateogio: 
+}
+
+opiniones
+{
+	id_usuario
+}
+usuario{
+	_id
+	id_producto_preferido
+}
+
+
+

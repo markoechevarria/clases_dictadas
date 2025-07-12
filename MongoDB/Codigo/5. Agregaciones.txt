@@ -1,0 +1,97 @@
+### AGGREGATE MATCH ###
+
+db.empleados.aggregate( [
+	{ $match: { cargo: "Desarrollador" } }
+] )
+
+db.empleados.aggregate( [
+	{ $match: { edad: {$gt: 30} } }
+] )
+
+db.empleados.aggregate( [
+	{ $match: { "direccion.ciudad": "Lima" } }
+])
+
+### AGGREGATE GROUP ###
+
+db.empleados.aggregate( [
+	{ $group: { _id: "$cargo", salario: { $avg: "$salario" } } }
+] )
+
+### AGGREGATE PROJECT ### 
+
+db.empleados.aggregate( [
+	{ $project: { ubicacion: { $concat: [ "$direccion.distrito", " - ", "$direccion.ciudad" ] }  } }
+] )
+
+### COUNTDOCUMENTS() ###
+
+db.empleados.countDocuments()
+db.empleados.countDocuments( {salario: { $lt: 4000 } } )
+db.empleados.countDocuments( { "direccion.ciudad": "Lima" } )
+
+### DISTINCT() ###
+
+db.empleados.distinct("cargo")
+db.empleados.distinct("nombre")
+db.empleados.distinct("direccion")
+
+### $sum, $avg, $min, $max ###
+
+db.empleados.aggregate( [
+	{ $group: { _id: "$cargo", salario: { $avg: "$salario" } } }
+] )
+
+db.empleados.aggregate( [
+	{ $group: { _id: "$cargo", salario: { $sum: "$salario" } } }
+] )
+
+db.empleados.aggregate( [
+	{ $group: { _id: "$cargo", salario_minimo: { $min: "$salario" } } }
+] )
+
+db.empleados.aggregate( [
+	{ $group: { _id: "$cargo", salario_maximo: { $max: "$salario" } } }
+] )
+
+### $push, $addToSet ###
+
+db.empleados.aggregate([
+	{ $group: { _id: "$cargo", palabras_clave: { $push: "$direccion.ciudad" } } }
+])
+
+db.empleados.aggregate([
+	{ $group: { _id: "$cargo", palabras_clave: { $addToSet: "$direccion.ciudad" } } }
+])
+
+### $sort, $limit, $skip ###
+
+db.empleados.aggregate([
+	{ $sort: { edad: 1 } }
+])
+
+db.empleados.aggregate([
+	{ $sort: { edad: -1 } }
+])
+
+db.empleados.aggregate([
+	{ $sort: { cargo: 1, edad: 1, salario: 1 } }
+])
+
+db.empleados.aggregate([
+	{ $sort: {salario: -1} },
+	{ $limit: 1 }
+])
+
+db.empleados.aggregate([
+	{ $skip: 3 }
+])
+
+db.empleados.aggregate([
+	{ $sort: {salario: 1} },
+	{ $skip: 1 },
+	{ $limit: 1 }
+])
+
+
+
